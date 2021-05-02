@@ -1,7 +1,7 @@
 # docker-demo-compose
 A small compose file for a tiny docker demo test
 
-This currently simply runs a test. It was an experiment to see how to use Docker along with Postgrsq
+This currently simply runs a test. It was an experiment to see how to use Docker along with Postgresql
 
 Setup: 
 
