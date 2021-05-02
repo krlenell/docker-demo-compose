@@ -1,9 +1,12 @@
 services:
   postgres:
     image: postgres:13-alpine
+    volumes:
+      - ../docker-demo-server/init.sql/:/docker-entrypoint-initdb.d/init.sql
+      - ./db:/var/lib/postgresql/data
     environment:
-      - PGDATABASE=example
-      - POSTGRES_DB=example
+      - PGDATABASE=movies
+      - POSTGRES_DB=movies
       - PGUSER=admin
       - POSTGRES_USER=admin
       - PGPASSWORD=password
@@ -20,7 +23,7 @@ services:
     links:
       - postgres
     environment:
-      - DATABASE_URL=postgres://admin:password@postgres/example?sslmode=disable
+      - DATABASE_URL=postgres://admin:password@postgres/movies?sslmode=disable
 
   node-js:
     image: node:16-alpine
@@ -28,7 +31,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - POSTGRES_DB=example
+      - POSTGRES_DB=movies
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=password
     links:
@@ -45,3 +48,6 @@ services:
       - "80:80"
     links:
       - node-js
+
+volumes:
+  db:
